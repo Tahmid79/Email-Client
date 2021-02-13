@@ -20,7 +20,7 @@ export class UniqueUsername implements AsyncValidator {
       return this.authService.usernameAvailable(value)
             .pipe( map( value =>{
 
-            console.log( value ) ;
+            //console.log( value ) ;
 
             if(value.available) {
               return null;
@@ -28,10 +28,11 @@ export class UniqueUsername implements AsyncValidator {
 
       }) , catchError( err =>{
             console.log(err) ;
-            if(err.message.username) {
-              return of({nonUniqueUsername: true}) ;
+
+            if(err.error.username) {
+              return of({ nonUniqueUsername: true} ) ;
             }else{
-              return of({ noConnection : true }) ;
+              return of({ noConnection : true } ) ;
             }
       })) ;
 
