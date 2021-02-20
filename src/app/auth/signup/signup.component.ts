@@ -4,6 +4,8 @@ import {FormControl , FormGroup , Validators } from '@angular/forms' ;
 import {MatchPassword} from '../validators/match-password' ;
 import {UniqueUsername} from '../validators/unique-username' ;
 
+import {AuthService} from '../auth.service' ;
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -11,9 +13,11 @@ import {UniqueUsername} from '../validators/unique-username' ;
 })
 export class SignupComponent implements OnInit {
 
+
   constructor(
     private matchPassword : MatchPassword,
-    private uniqueUsername : UniqueUsername ) { }
+    private uniqueUsername : UniqueUsername ,
+    private authService : AuthService ) { }
 
 
   authForm = new FormGroup({
@@ -46,12 +50,26 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(){
+
       if(this.authForm.invalid){
         return  ;
       }
 
-      let val = this.authForm.value ;
-      console.log(val)  ;
+     this.authService.signup( this.authForm.value ).subscribe({
+       next : response => {
+
+       } ,
+       error : err =>{
+            if(!err.status){
+               this.authForm.setErrors({ noConnection : true }) ;
+            }else {
+              this.authForm.setErrors({ unknownError : true  }) ;
+            }
+       }
+
+
+       }) ;
+
 
   }
 

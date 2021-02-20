@@ -51,12 +51,20 @@
         Password and Password Confirmation must match
     </p>
 
+    <p *ngIf="authForm.errors.noConnection">
+      No internet connection detected , failed to sign up
+    </p>
+
+    <p *ngIf="authForm.errors.unknownError">
+      Failed to sign up
+    </p>
+
   </div>
 
   <button class="ui submit button primary">
     Submit
   </button>
 
-  {{ authForm.errors | json  }}
+  <!-- {{ authForm.errors | json  }} -->
 
 </form>
