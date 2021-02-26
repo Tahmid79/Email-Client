@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from './auth/auth.service' ;
+import {BehaviorSubject} from 'rxjs';
 
 // https://api.angular-email.com/auth/signedin
 /*
@@ -15,8 +17,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
 
-  title = 'emailclient' ;
+  signedIn : BehaviorSubject<boolean>
+
+
+  constructor(private authService : AuthService ){
+        this.signedIn = authService.signedIn ;
+  }
+
+  ngOnInit(){
+    this.authService.checkAuth().subscribe(()=>{}) ;
+  }
+
+
 
 }
