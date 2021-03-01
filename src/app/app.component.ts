@@ -19,11 +19,10 @@ import {BehaviorSubject} from 'rxjs';
 
 export class AppComponent implements OnInit{
 
-  signedIn : BehaviorSubject<boolean>
-
+  signedIn : BehaviorSubject<boolean> ;
 
   constructor(private authService : AuthService ){
-        this.signedIn = authService.signedIn ;
+      this.signedIn = authService.signedIn  ;
   }
 
   ngOnInit(){
